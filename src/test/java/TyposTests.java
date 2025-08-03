@@ -27,7 +27,7 @@ public class TyposTests {
             try {
                 WebElement wrongText = driver.findElement(By.xpath("/html/body/div[2]/div/div/p[2]"));
                 Assert.assertEquals(wrongText.getText(), "Sometimes you'll see a typo, other times you won't.");
-            } catch (AssertionError e) {
+            } catch (AssertionError e) { // это исключение, которое возникает, когда утверждение (assertion), используемое в коде, оказывается ложным
                 System.err.println("The test failed-" + (i + 1) + ": " + e.getMessage());//сохраняем информацию о том, что проверка не прошла
             }
 //                driver.navigate().refresh();// обновлять страницу несколько раз
