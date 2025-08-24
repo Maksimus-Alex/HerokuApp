@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 import java.util.List;
@@ -19,6 +20,7 @@ checked, сделать unheck, проверить, что он unchecked
 Локатор: By.cssSelector("[type=checkbox]”)
      */
     WebDriver driver;
+    SoftAssert softAssert;
 
     @BeforeMethod
     public void setup() {
@@ -31,18 +33,18 @@ checked, сделать unheck, проверить, что он unchecked
         driver.get("https://the-internet.herokuapp.com/checkboxes");
         List<WebElement> checkBoxes = driver.findElements(By.cssSelector("[type=checkbox]"));// нахожу все Checkdox на сайте
         WebElement firstBox = driver.findElement(By.xpath("/html/body/div[2]/div/div/form/input[1]"));
-        Assert.assertFalse(firstBox.isSelected());//assertFalse предназначен для проверки того, что определенное условие в тесте является ложным.
+        softAssert.assertFalse(firstBox.isSelected());//assertFalse предназначен для проверки того, что определенное условие в тесте является ложным.
         firstBox.click();// Клик по первому чекбоксу
-        Assert.assertTrue(firstBox.isSelected());// проверка что его выбрали, использую assertTrue что просто проверить истинность
+        softAssert.assertTrue(firstBox.isSelected());// проверка что его выбрали, использую assertTrue что просто проверить истинность
         WebElement secondBox = driver.findElement(By.cssSelector("#checkboxes > input:nth-child(3)"));
-        Assert.assertTrue(secondBox.isSelected());
+        softAssert.assertTrue(secondBox.isSelected());
         secondBox.click();
-        Assert.assertFalse(secondBox.isSelected());
+        softAssert.assertFalse(secondBox.isSelected());
+        softAssert.assertAll();
     }
 
     @AfterMethod(alwaysRun = true)
     public void treaDown() {
         driver.quit();
-
     }
 }

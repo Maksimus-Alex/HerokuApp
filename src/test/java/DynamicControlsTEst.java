@@ -34,12 +34,10 @@ public class DynamicControlsTEst {
                 .withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(3))
                 .ignoring(NoSuchElementException.class);
-
     }
 
     @AfterMethod(alwaysRun = true)
     public void treaDown() {
         driver.quit();
-
     }
 }

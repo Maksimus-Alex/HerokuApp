@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 import java.util.List;
@@ -19,6 +20,7 @@ public class DropdownTest {
 Локатор: By.id(“dropdown”)
      */
     WebDriver driver;
+    SoftAssert softAssert;
 
     @BeforeMethod
     public void setup() {
@@ -32,13 +34,14 @@ public class DropdownTest {
         WebElement dropdown = driver.findElement(By.id("dropdown"));// находим элемент
         Select dropdownEl = new Select(dropdown);// Select это класс который дает возможность работать с выпадающими списками, как у нас на сайте
         List<WebElement> options = dropdownEl.getOptions();// Получаем все элементы dropdown
-        Assert.assertEquals(options.size(), 3);// проверяем нашел ли он все элементы
+        softAssert.assertEquals(options.size(), 3);// проверяем нашел ли он все элементы
         dropdownEl.selectByIndex(1);// выбираем первый элемент
         WebElement selectFirstDropdown = dropdownEl.getFirstSelectedOption();// получаем выбранный элемент
-        Assert.assertTrue(selectFirstDropdown.isSelected());// проверяем истинность того что выбрали
+        softAssert.assertTrue(selectFirstDropdown.isSelected());// проверяем истинность того что выбрали
         dropdownEl.selectByIndex(2);// повторяем тоже самое со вторым элементом
         WebElement selectSecondDropdown = dropdownEl.getFirstSelectedOption();// получаем выбранный элемент
-        Assert.assertTrue(selectSecondDropdown.isSelected());
+        softAssert.assertTrue(selectSecondDropdown.isSelected());
+        softAssert.assertAll();
     }
 
     @AfterMethod(alwaysRun = true)
